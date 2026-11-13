@@ -2,10 +2,16 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///sqlite3.db")
+# Создание базового класса для моделей SQLAlchemy
+Base = declarative_base()
 
+# URL базы данных
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///movies.db")
+
+# Создание движка SQLAlchemy для подключения к базе данных
 engine = create_engine(DATABASE_URL)
 
+# Создание базового класса для моделей SQLAlchemy
 SessionLocal = sessionmaker(
     bind=engine,
     autocommit=False,
@@ -13,9 +19,7 @@ SessionLocal = sessionmaker(
     expire_on_commit=False
 )
 
-Base = declarative_base()
-
-# что забить на закрытие сессии
+# Предоставление сессии базе данных для обработки запроса
 async def get_db():
     db = SessionLocal()
     try:

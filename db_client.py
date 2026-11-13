@@ -3,10 +3,11 @@ from models import Movie
 from schemas import MovieResponse
 
 
+# Получение всех фильмов из базы данных
 def get_all_movies(db: Session):
     return db.query(Movie).all()
 
-
+# Получение фильма по его идентификатору
 def get_movie(movie_id: int, db: Session):
     movie = db.query(Movie).filter(Movie.id == movie_id).first()
 
@@ -15,7 +16,7 @@ def get_movie(movie_id: int, db: Session):
 
     return movie
 
-
+# Добавление нового фильма в базу данных
 def add_movie(payload: MovieResponse, db: Session):
     new_movie = Movie(
         name=payload.name,
@@ -30,7 +31,7 @@ def add_movie(payload: MovieResponse, db: Session):
 
     return new_movie
 
-
+# Удаление фильма из базы данных по его идентификатору
 def delete_movie(movie_id: int, db: Session):
     movie = get_movie(movie_id, db)
 
@@ -42,6 +43,7 @@ def delete_movie(movie_id: int, db: Session):
 
     return True
 
+# Обновление информации о фильме в базе данных
 def update_movie(movie_id: int, payload: MovieResponse, db: Session):
     movie = get_movie(movie_id, db)
 

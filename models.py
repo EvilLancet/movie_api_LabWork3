@@ -4,6 +4,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 class Base(DeclarativeBase):
     pass
 
+# Таблица базы данных для хранения информации о фильмах
 class Movie(Base):
     __tablename__ = "movies"
 
